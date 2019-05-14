@@ -33,7 +33,7 @@ if (!isProduction) {
 if(isProduction){
   mongoose.connect(process.env.MONGODB_URI);
 } else {
-  mongoose.connect('mongodb://localhost/conduit');
+  mongoose.connect('mongodb+srv://ventalibrosapp:S62NJelACKcSfJjA@cluster0-yrtpm.mongodb.net/desa?retryWrites=true');
   mongoose.set('debug', true);
 }
 

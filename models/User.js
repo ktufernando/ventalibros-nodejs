@@ -11,6 +11,12 @@ var UserSchema = new mongoose.Schema({
   image: String,
   favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Article' }],
   following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  purchases: [{
+      article: { type: mongoose.Schema.Types.ObjectId, ref: 'Article' },
+      mpReference: String,
+      mpStatus: {type: String, default: 'pending'}
+    }
+  ],
   hash: String,
   salt: String
 }, {timestamps: true});

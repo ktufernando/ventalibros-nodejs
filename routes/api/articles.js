@@ -8,7 +8,7 @@ var auth = require('../auth');
 // Preload article objects on routes with ':article'
 router.param('article', function(req, res, next, slug) {
   Article.findOne({ slug: slug})
-    .populate('author')
+    //.populate('author')
     .then(function (article) {
       if (!article) { return res.sendStatus(404); }
 
@@ -46,14 +46,14 @@ router.get('/', auth.optional, function(req, res, next) {
   }
 
   Promise.all([
-    req.query.author ? User.findOne({username: req.query.author}) : null,
+    req.query.buyer ? User.findOne({username: req.query.buyer}) : null,
     req.query.favorited ? User.findOne({username: req.query.favorited}) : null
   ]).then(function(results){
-    var author = results[0];
+    var buyer = results[0];
     var favoriter = results[1];
 
-    if(author){
-      query.author = author._id;
+    if(buyer){
+      query._id = {$in: buyer.purchases.map(o => o.article)};;
     }
 
     if(favoriter){
@@ -67,7 +67,6 @@ router.get('/', auth.optional, function(req, res, next) {
         .limit(Number(limit))
         .skip(Number(offset))
         .sort({createdAt: 'desc'})
-        .populate('author')
         .exec(),
       Article.count(query).exec(),
       req.payload ? User.findById(req.payload.id) : null,
@@ -128,7 +127,7 @@ router.post('/', auth.required, function(req, res, next) {
 
     var article = new Article(req.body.article);
 
-    article.author = user;
+    //article.author = user;
 
     return article.save().then(function(){
       console.log(article.author);
@@ -141,7 +140,8 @@ router.post('/', auth.required, function(req, res, next) {
 router.get('/:article', auth.optional, function(req, res, next) {
   Promise.all([
     req.payload ? User.findById(req.payload.id) : null,
-    req.article.populate('author').execPopulate()
+    //req.article.populate('author').execPopulate()
+    req.article.execPopulate()
   ]).then(function(results){
     var user = results[0];
 

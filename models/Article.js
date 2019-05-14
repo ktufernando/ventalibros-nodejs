@@ -9,9 +9,14 @@ var ArticleSchema = new mongoose.Schema({
   description: String,
   body: String,
   favoritesCount: {type: Number, default: 0},
+  images: [{ type: String }],
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
   tagList: [{ type: String }],
-  author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+  author: { 
+    name: String,
+    image: String
+  },
+  value: Number
 }, {timestamps: true});
 
 ArticleSchema.plugin(uniqueValidator, {message: 'is already taken'});
@@ -49,7 +54,8 @@ ArticleSchema.methods.toJSONFor = function(user){
     tagList: this.tagList,
     favorited: user ? user.isFavorite(this._id) : false,
     favoritesCount: this.favoritesCount,
-    author: this.author.toProfileJSONFor(user)
+    author: this.author
+    //author: this.author.toProfileJSONFor(user)
   };
 };
 
