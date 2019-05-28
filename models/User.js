@@ -14,7 +14,8 @@ var UserSchema = new mongoose.Schema({
   purchases: [{
       article: { type: mongoose.Schema.Types.ObjectId, ref: 'Article' },
       mpReference: String,
-      mpStatus: {type: String, default: 'pending'}
+      mpStatus: {type: String, default: 'pending'},
+      downloads: {type: Number, default: 0}
     }
   ],
   hash: String,
