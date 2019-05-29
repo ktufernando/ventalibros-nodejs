@@ -30,9 +30,9 @@ router.get('/:article', auth.required, function (req, res, next) {
                 if(!o.downloads){
                     o.downloads = 0;
                 }
-                if(o.downloads >= 5){
+                /*if(o.downloads >= 5){
                     throw new Error('LLego al máximo de descargas. Envíe un mail para resolver el problema.');
-                }
+                }*/
                 o.downloads++;
                 downloads = o.downloads;
                 download = true;

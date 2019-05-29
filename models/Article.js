@@ -46,6 +46,7 @@ ArticleSchema.methods.updateFavoriteCount = function() {
 
 ArticleSchema.methods.toJSONFor = function(user){
   return {
+    id: this._id,
     slug: this.slug,
     title: this.title,
     description: this.description,

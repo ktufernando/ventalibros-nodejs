@@ -52,7 +52,8 @@ UserSchema.methods.toAuthJSON = function(){
     email: this.email,
     token: this.generateJWT(),
     bio: this.bio,
-    image: this.image
+    image: this.image,
+    purchases: this.purchases.filter(o => o.mpStatus === 'approved').map(o => o.article)
   };
 };
 
