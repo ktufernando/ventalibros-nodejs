@@ -30,8 +30,8 @@ router.post('/payment', auth.required, (req, res, next) => {
                 email: user.email,
             },
             back_urls:{
-                success: 'http://localhost:4200/#/mp/payment/success',
-                failure: 'http://localhost:4200/#/mp/payment/failure'
+                success: 'https://ventalibrosdigitales.herokuapp.com/#/mp/payment/success',
+                failure: 'https://ventalibrosdigitales.herokuapp.com/#/mp/payment/failure'
             },
             auto_return: 'approved',
             external_reference: uuidv1(),
